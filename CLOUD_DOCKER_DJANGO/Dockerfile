@@ -1,0 +1,15 @@
+FROM python 
+
+RUN mkdir CLOUD_DOCKER_DJANGO
+WORKDIR CLOUD_DOCKER_DJANGO
+
+ADD . /CLOUD_DOCKER_DJANGO/
+ADD . /main/
+ADD .env.docker /CLOUD_DOCKER_DJANGO/.env
+
+ENV APP_NAME = CLOUD_DOCKER_DJANGO
+
+RUN pip install -r requirements.txt
+
+
+CMD gunicorn CLOUD_DOCKER_DJANGO.wsgi:application -b 0.0.0.0:8080
